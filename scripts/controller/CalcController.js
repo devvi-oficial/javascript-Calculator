@@ -83,7 +83,7 @@ class CalcController {
     playAudio() {
 
         if (this._audioOnOff) {
-            
+
             this._audio.currentTime = 0;
             this._audio.play();
 
@@ -133,9 +133,12 @@ class CalcController {
                     break;
 
                 case 'c':
-                    if (e.ctrlKey) this.copyToClipboard();
+                    if (e.ctrlKey) 
+                        this.copyToClipboard();
+                    
+
                     break;
-                
+
             }
 
         });
@@ -184,7 +187,13 @@ class CalcController {
 
     isOperator(value) {
 
-        return (['+', '-', '*', '%', '/'].indexOf(value) > -1);
+        return([
+            '+',
+            '-',
+            '*',
+            '%',
+            '/'
+        ].indexOf(value) > -1);
 
     }
 
@@ -245,7 +254,10 @@ class CalcController {
 
             this._operation = [result];
 
-            if (last) this._operation.push(last);
+            if (last) 
+                this._operation.push(last);
+            
+
 
         }
 
@@ -266,7 +278,13 @@ class CalcController {
 
         }
 
-        if (!lastItem) {
+
+        if (lastItem == 0) {
+            
+            return lastItem;
+
+        } else if (!lastItem) {
+
 
             lastItem = (isOperator) ? this._lastOperator : this._lastNumber;
 
@@ -280,7 +298,10 @@ class CalcController {
 
         let lastNumber = this.getLastItem(false);
 
-        if (!lastNumber) lastNumber = 0;
+        if (! lastNumber) 
+            lastNumber = 0;
+        
+
 
         this.displayCalc = lastNumber;
 
@@ -330,9 +351,12 @@ class CalcController {
 
         let lastOperation = this.getLastOperation();
 
-        if (typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1) return;
+        if (typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1) 
+            return;
+        
 
-        if (this.isOperator(lastOperation) || !lastOperation) {
+
+        if (this.isOperator(lastOperation) || ! lastOperation) {
             this.setLastOperation('0.');
         } else {
             this.setLastOperation(lastOperation.toString() + '.');
@@ -348,7 +372,7 @@ class CalcController {
         console.log(value);
         switch (value) {
 
-            
+
             case 'ac':
                 this.clearAll();
                 break;
@@ -387,11 +411,11 @@ class CalcController {
             case '8':
             case '9':
                 this.addOperation(parseInt(value));
-                
+
                 break;
             default:
                 this.setError();
-            
+
         }
 
     }
@@ -461,7 +485,7 @@ class CalcController {
         }
 
         this._displayCalcEl.innerHTML = value;
-        
+
     }
 
     get currentDate() {
